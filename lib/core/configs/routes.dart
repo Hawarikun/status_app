@@ -12,7 +12,11 @@ class AppRoutes {
   static final goRouter = GoRouter(
     initialLocation: "/splash",
     routes: [
-      GoRoute(name: splash, path: "/splash", pageBuilder: _splashPageBuilder,),
+      GoRoute(
+        name: splash,
+        path: "/splash",
+        pageBuilder: _splashPageBuilder,
+      ),
       GoRoute(
         name: auth,
         path: '/auth',
