@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:status_app/core/configs/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -22,10 +24,15 @@ class SplashPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: size.height * 0.13,
-              width: size.height * 0.13,
-              child: Image.asset("assets/logoAPP.jpg"),
+            Image.asset(
+              "assets/images/dicoding_logo.png",
+              height: size.width * 0.35,
+              width: size.width * 0.35,
+            ),
+            Gap(size.height * 0.02),
+            Text(
+              AppLocalizations.of(context)!.splashDescription,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

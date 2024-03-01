@@ -1,0 +1,16 @@
+{
+  "titleApp": "Story App",
+  "@titleApp": {
+    "description": "nama aplikasi"
+  },
+  "splashDescription": "Selamat datang di Story App",
+  "loginTittle": "Masuk",
+  "@loginTittle": {
+    "description": "judul untuk login" 
+  },
+  "description": "Hai! selamat datang kembali, kamu telah dirindukan",
+  "@description": {
+    "description": "deskripsi dibawah title" 
+  },
+  "titleButton": "Masuk"
+}
