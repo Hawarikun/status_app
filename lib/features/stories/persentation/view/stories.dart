@@ -46,6 +46,7 @@ class StoriesIndex extends StatelessWidget {
             height: size.width,
             width: size.width,
             fit: BoxFit.cover,
+            alignment: Alignment.center,
             errorBuilder: (context, error, stackTrace) => Icon(
               Icons.warning,
               size: size.height * 0.05,

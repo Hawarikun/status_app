@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
+import 'package:status_app/core/configs/color.dart';
 import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/core/datas/shared_preferences.dart';
-import 'package:status_app/features/stories/persentation/controller/story.dart';
-import 'package:status_app/features/stories/persentation/view/stories.dart';
+import 'package:status_app/pages/home_fragment.dart';
+
+final currentIndexProvider = StateProvider.autoDispose<int>(
+  (ref) => 0,
+);
+
+final pageControllerProvider = StateProvider.autoDispose<PageController>(
+  (ref) => PageController(),
+);
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -14,15 +20,15 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final story = ref.watch(
-      storyIndexControllerProv(
-        const StoryIndexParams(
-          page: 1,
-          size: 20,
-          location: 0,
-        ),
+    final currentIndex = ref.watch(currentIndexProvider);
+    final pageController = ref.watch(pageControllerProvider);
+
+    List pageOption = [
+      const HomeFragment(),
+      const Center(
+        child: Text("settings"),
       ),
-    );
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -49,70 +55,50 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: story.when(
-        data: (data) {
-          return RefreshIndicator(
-            onRefresh: () async => ref.invalidate(
-              storyIndexControllerProv(
-                const StoryIndexParams(
-                  page: 1,
-                  size: 20,
-                  location: 0,
-                ),
-              ),
-            ),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return StoriesIndex(
-                  story: data[index],
-                );
-              },
-              itemCount: data.length,
-            ),
-          );
+      body: PageView.builder(
+        controller: pageController,
+        itemCount: pageOption.length,
+        itemBuilder: (context, index) => pageOption.elementAt(currentIndex),
+        onPageChanged: (value) {
+          ref.read(currentIndexProvider.notifier).state = value;
         },
-        error: (error, stackTrace) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  "assets/svg/error.svg",
-                  height: size.height * 0.3,
-                  width: size.width * 0.5,
-                  fit: BoxFit.cover,
-                ),
-                Gap(size.height * 0.03),
-                Text(
-                  "Maaf Terjadi Kesalahan Pada Aplikasi",
-                  style: TextStyle(
-                    fontSize: size.height * p1,
-                  ),
-                ),
-                Text(
-                  "$error",
-                  style: TextStyle(
-                    fontSize: size.height * p1,
-                  ),
-                ),
-              ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (value) {
+          ref.read(currentIndexProvider.notifier).state = value;
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined),
+            activeIcon: Icon(Icons.settings),
+            label: "Home",
+          ),
+        ],
+      ),
+      // floatingActionButton: FloatingActionButton.small(
+      //   onPressed: () {},
+      //   child: const Icon(Icons.add),
+      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Visibility(
+        visible: currentIndex == 0 ? true : false,
+        child: SizedBox(
+          height: size.width * 0.15,
+          width: size.width * 0.15,
+          child: IconButton.filled(
+            style: IconButton.styleFrom(
+              backgroundColor: ColorApp.primary,
             ),
-          );
-        },
-        loading: () {
-          //   return ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     shrinkWrap: true,
-          //     itemBuilder: (context, index) {
-          //       return const StoryIndexS();
-          //     },
-          //     itemCount: 5,
-          //   );
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+          ),
+        ),
       ),
     );
   }
