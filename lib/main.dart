@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: false,
       title: 'Status App',
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('id', ''),
         Locale('en', ''),
       ],

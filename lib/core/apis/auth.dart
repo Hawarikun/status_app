@@ -8,8 +8,8 @@ class AuthApi {
   Uri register() {
     return ApiHelper.buildUri(endpoint: "register");
   }
-  }
 
   Uri logout() {
     return ApiHelper.buildUri(endpoint: "logout");
   }
+}

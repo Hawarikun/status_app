@@ -15,10 +15,8 @@ class LoginApplication {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        return WillPopScope(
-          onWillPop: () {
-            return Future.value(false);
-          },
+        return PopScope(
+          onPopInvoked: (didPop) => false,
           child: Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
@@ -44,8 +42,7 @@ class LoginApplication {
                           Future.delayed(
                             const Duration(milliseconds: 300),
                             () {
-                              AppRoutes.goRouter
-                                  .pushReplacementNamed(AppRoutes.home);
+                              AppRoutes.goRouter.pushReplacementNamed(AppRoutes.home);
                             },
                           );
                         },

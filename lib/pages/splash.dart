@@ -28,6 +28,9 @@ class SplashPage extends StatelessWidget {
               "assets/images/dicoding_logo.png",
               height: size.width * 0.35,
               width: size.width * 0.35,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.warning);
+              },
             ),
             Gap(size.height * 0.02),
             Text(

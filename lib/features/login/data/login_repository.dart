@@ -11,7 +11,7 @@ class LoginRepository {
     return await ApiHelper().postData(
       uri: api.login(),
       builder: (data) async {
-        LocalPrefsRepository().saveToken(data["token"]);
+        LocalPrefsRepository().saveToken(data["loginResult"]["token"]);
       },
       header: ApiHelper.header(),
       jsonBody: {

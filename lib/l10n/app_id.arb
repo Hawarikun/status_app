@@ -4,13 +4,24 @@
     "description": "nama aplikasi"
   },
   "splashDescription": "Selamat datang di Story App",
-  "loginTittle": "Masuk",
-  "@loginTittle": {
+
+  "loginTitle": "Masuk",
+  "registerTitle": "Daftar",
+  "@loginTitle": {
     "description": "judul untuk login" 
   },
-  "description": "Hai! selamat datang kembali, kamu telah dirindukan",
+  "descriptionLogin": "Hai! selamat datang kembali, kamu telah dirindukan",
   "@description": {
     "description": "deskripsi dibawah title" 
   },
-  "titleButton": "Masuk"
+  "descriptionRegister": "Isi Informasi Anda di bawah",
+  "name": "Nama",
+  "confirmPassword": "Konfirmasi password",
+  "validationName": "Nama harus diisi",
+  "validationEmail": "Email harus diisi",
+  "validationPassword": "Password harus diisi",
+  "validationPassword2": "Password harus memiliki 8 karakter",
+  "questionRegister": "Tidak mempunyai akun ?",
+  "questionLogin": "Sudah punya akun ?"
+
 }
