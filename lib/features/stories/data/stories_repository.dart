@@ -28,6 +28,21 @@ class StoriesRepository {
       },
     );
   }
+
+  Future<Story> detail({
+    String? id,
+  }) async {
+    final token = await LocalPrefsRepository().getToken();
+    return await ApiHelper().getData(
+      uri: api.detail(id: id),
+      header: ApiHelper.headerStory(token!),
+      builder: (data) {
+        return Story.fromMap(
+          data["story"],
+        );
+      },
+    );
+  }
 }
 
 final storyRepoProv = Provider(

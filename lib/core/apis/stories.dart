@@ -11,4 +11,10 @@ class StoryApi {
       },
     );
   }
+
+  Uri detail({String? id}) {
+    return ApiHelper.buildUri(
+      endpoint: "stories/$id",
+    );
+  }
 }

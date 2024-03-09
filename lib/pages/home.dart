@@ -5,6 +5,7 @@ import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/core/datas/shared_preferences.dart';
 import 'package:status_app/pages/home_fragment.dart';
+import 'package:status_app/pages/settings_fragment.dart';
 
 final currentIndexProvider = StateProvider.autoDispose<int>(
   (ref) => 0,
@@ -25,9 +26,7 @@ class HomePage extends ConsumerWidget {
 
     List pageOption = [
       const HomeFragment(),
-      const Center(
-        child: Text("settings"),
-      ),
+      const SettingsFragment(),
     ];
 
     return Scaffold(
@@ -40,20 +39,6 @@ class HomePage extends ConsumerWidget {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await LocalPrefsRepository().deleteToken();
-              AppRoutes().clearAndNavigate(
-                AppRoutes.auth,
-              );
-            },
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-          ),
-        ],
       ),
       body: PageView.builder(
         controller: pageController,
