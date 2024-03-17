@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:status_app/core/configs/color.dart';
 import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/core/datas/shared_preferences.dart';
@@ -26,7 +25,7 @@ class SettingsFragment extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.exit_to_app_outlined,
                 color: Colors.white,
               ),

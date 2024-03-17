@@ -34,7 +34,7 @@ class StoryDetailParams extends Equatable {
   List<Object?> get props => [id];
 }
 
-final agencyDetailControllerProv = AutoDisposeStateNotifierProviderFamily<
+final storyDetailControllerProv = AutoDisposeStateNotifierProviderFamily<
     StoryDetailController, AsyncValue<Story>, StoryDetailParams>((
   ref,
   params,

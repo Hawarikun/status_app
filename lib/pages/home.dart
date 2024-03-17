@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:status_app/core/configs/color.dart';
 import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
-import 'package:status_app/core/datas/shared_preferences.dart';
 import 'package:status_app/pages/home_fragment.dart';
 import 'package:status_app/pages/settings_fragment.dart';
 
@@ -66,10 +65,6 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton.small(
-      //   onPressed: () {},
-      //   child: const Icon(Icons.add),
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Visibility(
         visible: currentIndex == 0 ? true : false,
@@ -80,7 +75,9 @@ class HomePage extends ConsumerWidget {
             style: IconButton.styleFrom(
               backgroundColor: ColorApp.primary,
             ),
-            onPressed: () {},
+            onPressed: () {
+              AppRoutes.goRouter.pushNamed(AppRoutes.addStory);
+            },
             icon: const Icon(Icons.add),
           ),
         ),

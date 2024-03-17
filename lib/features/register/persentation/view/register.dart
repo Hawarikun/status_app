@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:status_app/core/configs/color.dart';
@@ -7,7 +8,6 @@ import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/register/persentation/controller/register.dart';
 import 'package:status_app/pages/auth.dart';
 import 'package:status_app/widgets/custom_textformfiel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final nameControllerProvider = StateProvider.autoDispose<TextEditingController>(
     (ref) => TextEditingController());
@@ -236,7 +236,7 @@ class RegisterForm extends ConsumerWidget {
                                         );
                                       },
                                     );
-                                    return const Text("Berhasil Login");
+                                    return const Text("Berhasil Registarsi");
                                   },
                                   error: (error, stackTrace) {
                                     return Column(
@@ -252,9 +252,7 @@ class RegisterForm extends ConsumerWidget {
                                                 .onBackground,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: size.height * 0.02,
-                                        ),
+                                        Gap(size.height * 0.02),
                                         Text(
                                           error.toString(),
                                           style: TextStyle(
@@ -264,9 +262,7 @@ class RegisterForm extends ConsumerWidget {
                                                 .onBackground,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: size.height * 0.02,
-                                        ),
+                                        Gap(size.height * 0.02),
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: TextButton(

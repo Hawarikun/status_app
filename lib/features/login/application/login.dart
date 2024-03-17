@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:status_app/core/configs/color.dart';
 import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/login/persentation/controller/login_controller.dart';
@@ -21,7 +23,8 @@ class LoginApplication {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Padding(
+            child: Container(
+              height: size.height * 0.3,
               padding: EdgeInsets.all(size.width * 0.03),
               child: Consumer(
                 builder: (context, ref, _) {
@@ -42,12 +45,21 @@ class LoginApplication {
                           Future.delayed(
                             const Duration(milliseconds: 300),
                             () {
-                              AppRoutes.goRouter.pushReplacementNamed(AppRoutes.home);
+                              AppRoutes.goRouter
+                                  .pushReplacementNamed(AppRoutes.home);
                             },
                           );
                         },
                       );
-                      return const Text("Berhasil Login");
+                      return Center(
+                        child: Text(
+                          "Login Berhasil",
+                          style: TextStyle(
+                            fontSize: size.height * h1,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
                     },
                     error: (error, stackTrace) {
                       return Column(
@@ -58,22 +70,16 @@ class LoginApplication {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: size.height * h1,
-                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
+                          Gap(size.height * 0.02),
                           Text(
                             error.toString(),
                             style: TextStyle(
                               fontSize: size.height * p1,
-                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
+                          Gap(size.height * 0.02),
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
@@ -81,8 +87,7 @@ class LoginApplication {
                                 AppRoutes.goRouter.pop();
                               },
                               style: TextButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                                backgroundColor: ColorApp.primary,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -91,8 +96,7 @@ class LoginApplication {
                                 "Kembali",
                                 style: TextStyle(
                                   fontSize: size.height * p1,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -101,22 +105,23 @@ class LoginApplication {
                       );
                     },
                     loading: () {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Sedang Login",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: size.height * h1,
-                              color: Theme.of(context).colorScheme.onBackground,
+                      return Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Sedang Login",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: size.height * h1,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
-                          const CircularProgressIndicator(),
-                        ],
+                            Gap(size.height * 0.05),
+                            const CircularProgressIndicator(),
+                          ],
+                        ),
                       );
                     },
                   );

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:status_app/core/configs/text_size.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField(
-      {super.key,
-      required this.nameController,
-      required this.type,
-      required this.hintText,
-      required this.callBack,
-      this.isObsecure,
-      this.iconButton});
+  const CustomTextFormField({
+    super.key,
+    required this.nameController,
+    required this.type,
+    required this.hintText,
+    required this.callBack,
+    this.isObsecure,
+    this.iconButton,
+    this.maxLines,
+    this.radius,
+  });
 
   final TextEditingController nameController;
   final TextInputType type;
@@ -17,11 +20,14 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? callBack;
   final Widget? iconButton;
   final bool? isObsecure;
+  final int? maxLines;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return TextFormField(
+      maxLines: maxLines ?? 1,
       controller: nameController,
       keyboardType: type,
       obscureText: isObsecure ?? false,
@@ -32,6 +38,7 @@ class CustomTextFormField extends StatelessWidget {
         suffixIcon: iconButton ?? const SizedBox(),
         contentPadding: EdgeInsets.symmetric(
           horizontal: size.width * 0.03,
+          vertical: size.width * 0.03,
         ),
         hintText: hintText,
         hintStyle: TextStyle(
@@ -46,7 +53,7 @@ class CustomTextFormField extends StatelessWidget {
             width: size.width * 0.001,
             color: Colors.grey,
           ),
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(radius ?? 25),
         ),
       ),
       validator: callBack,

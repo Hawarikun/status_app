@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:status_app/core/datas/shared_preferences.dart';
+import 'package:status_app/features/add_story/persentation/view/add_story.dart';
+import 'package:status_app/features/stories/domain/stories.dart';
+import 'package:status_app/features/stories/persentation/view/story_detail.dart';
 import 'package:status_app/pages/auth.dart';
 import 'package:status_app/pages/home.dart';
 
@@ -8,6 +11,8 @@ class AppRoutes {
   static const splash = "splash";
   static const auth = "auth";
   static const home = "home";
+  static const detailStory = "detail-story";
+  static const addStory = "add-story";
 
   static final goRouter = GoRouter(
     initialLocation: "/splash",
@@ -33,7 +38,17 @@ class AppRoutes {
         name: home,
         path: "/home",
         pageBuilder: _homePageBuilder,
-      )
+      ),
+      GoRoute(
+        name: detailStory,
+        path: "/detail-story",
+        pageBuilder: _detailStoryPageBuilder,
+      ),
+      GoRoute(
+        name: addStory,
+        path: "/add-story",
+        pageBuilder: _addStoryPageBuilder,
+      ),
     ],
   );
 
@@ -59,6 +74,20 @@ class AppRoutes {
   static Page _homePageBuilder(context, state) {
     return transition(
       child: const HomePage(),
+    );
+  }
+
+  static Page _detailStoryPageBuilder(context, state) {
+    return transition(
+      child: StoryDetail(
+        story: state.extra as Story,
+      ),
+    );
+  }
+
+  static Page _addStoryPageBuilder(context, state) {
+    return transition(
+      child: const AddStory(),
     );
   }
 

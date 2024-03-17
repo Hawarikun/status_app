@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:status_app/core/configs/color.dart';
@@ -6,7 +7,6 @@ import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/login/application/login.dart';
 import 'package:status_app/pages/auth.dart';
 import 'package:status_app/widgets/custom_textformfiel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final emailControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
