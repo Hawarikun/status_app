@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/stories/domain/stories.dart';
@@ -22,7 +23,7 @@ class StoryDetail extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Story Details",
+          AppLocalizations.of(context)!.storyDetail,
           style: TextStyle(
             fontSize: size.height * h1,
             fontWeight: FontWeight.bold,

@@ -6,6 +6,7 @@ import 'package:status_app/features/stories/domain/stories.dart';
 import 'package:status_app/features/stories/persentation/view/story_detail.dart';
 import 'package:status_app/pages/auth.dart';
 import 'package:status_app/pages/home.dart';
+import 'package:status_app/pages/splash.dart';
 
 class AppRoutes {
   static const splash = "splash";
@@ -61,7 +62,7 @@ class AppRoutes {
 
   static Page _splashPageBuilder(context, state) {
     return transition(
-      child: const AuthPage(),
+      child: const SplashPage(),
     );
   }
 

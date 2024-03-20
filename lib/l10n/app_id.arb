@@ -8,11 +8,11 @@
   "loginTitle": "Masuk",
   "registerTitle": "Daftar",
   "@loginTitle": {
-    "description": "judul untuk login" 
+    "description": "judul untuk login"
   },
   "descriptionLogin": "Hai! selamat datang kembali, kamu telah dirindukan",
   "@description": {
-    "description": "deskripsi dibawah title" 
+    "description": "deskripsi dibawah title"
   },
   "descriptionRegister": "Isi Informasi Anda di bawah",
   "name": "Nama",
@@ -22,5 +22,11 @@
   "validationPassword": "Password harus diisi",
   "validationPassword2": "Password harus memiliki 8 karakter",
   "questionRegister": "Tidak mempunyai akun ?",
-  "questionLogin": "Sudah punya akun ?"
+  "questionLogin": "Sudah punya akun ?",
+
+  "addStory" : "Tambah Cerita",
+  "description" : "deskripsi",
+  "addImage" : "Tambah Gambar",
+
+  "storyDetail" : "Detail Cerita"
 }

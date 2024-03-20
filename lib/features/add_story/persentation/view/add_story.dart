@@ -10,6 +10,7 @@ import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/core/helper/compressed_image.dart';
 import 'package:status_app/features/add_story/application/add_story.dart';
 import 'package:status_app/widgets/custom_textformfiel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final imagePathProvider = StateProvider.autoDispose<String?>((ref) => null);
 
@@ -67,7 +68,7 @@ class AddStory extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Tambah Cerita",
+          AppLocalizations.of(context)!.addStory,
           style: TextStyle(
             fontSize: size.height * h1,
             fontWeight: FontWeight.bold,
@@ -128,7 +129,7 @@ class AddStory extends ConsumerWidget {
                           ),
                           Gap(size.width * 0.02),
                           Text(
-                            "Tambah Gambar",
+                            AppLocalizations.of(context)!.addImage,
                             style: TextStyle(
                               fontSize: size.height * p1,
                               fontWeight: FontWeight.bold,
@@ -183,7 +184,7 @@ class AddStory extends ConsumerWidget {
               type: TextInputType.emailAddress,
               maxLines: 6,
               radius: 8,
-              hintText: "description",
+              hintText: AppLocalizations.of(context)!.description,
               callBack: (value) {
                 if (value == null || value == "") {
                   return "harus diisi";
@@ -204,6 +205,7 @@ class AddStory extends ConsumerWidget {
                   final bytes = await getBytes();
                   AddStoryApplication().addStory(
                     context: context,
+                    ref: ref,
                     size: size,
                     description: descriptionController.text,
                     fileName: imageFile!.name,
@@ -216,7 +218,7 @@ class AddStory extends ConsumerWidget {
                   color: Colors.white,
                 ),
                 label: Text(
-                  "Tambah Cerita",
+                  AppLocalizations.of(context)!.addStory,
                   style: TextStyle(
                     fontSize: size.height * h2,
                     fontWeight: FontWeight.bold,

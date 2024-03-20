@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/add_story/persentation/controller/add_story.dart';
+import 'package:status_app/features/stories/persentation/controller/story_index.dart';
 
 class AddStoryApplication {
   addStory(
@@ -12,6 +13,7 @@ class AddStoryApplication {
       required String description,
       required String fileName,
       required List<int> image,
+      required WidgetRef ref,
       double? lon,
       double? lat}) {
     showDialog(
@@ -79,8 +81,16 @@ class AddStoryApplication {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                               onPressed: () {
-                                AppRoutes.goRouter
-                                    .pushReplacementNamed(AppRoutes.home);
+                                AppRoutes().clearAndNavigate(AppRoutes.home);
+                                ref.invalidate(
+                                  storyIndexControllerProv(
+                                    const StoryIndexParams(
+                                      page: 1,
+                                      size: 20,
+                                      location: 0,
+                                    ),
+                                  ),
+                                );
                               },
                               style: TextButton.styleFrom(
                                 backgroundColor:

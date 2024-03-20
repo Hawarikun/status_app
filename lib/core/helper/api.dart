@@ -120,6 +120,7 @@ class ApiHelper {
           throw Exception("endpoint not found");
         default:
           final data = jsonDecode(response.body);
+          print(response.body);
           throw Exception(data.toString());
       }
     } on SocketException catch (_) {

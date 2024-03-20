@@ -220,24 +220,68 @@ class RegisterForm extends ConsumerWidget {
                                   ),
                                 );
                                 return response.when(
+
+                                  /// jika berhasil
                                   data: (data) {
-                                    Future.delayed(
-                                      const Duration(milliseconds: 300),
-                                      () {
-                                        AppRoutes.goRouter.pop();
-                                        Future.delayed(
-                                          const Duration(milliseconds: 300),
-                                          () {
-                                            ref
-                                                .read(authPageTypeProvider
-                                                    .notifier)
-                                                .state = "login";
-                                          },
-                                        );
-                                      },
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Daftar Berhasil",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: size.height * h1,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                          ),
+                                        ),
+                                        Gap(size.height * 0.02),
+                                        Text(
+                                          "Akun anda berhasil dibuat",
+                                          style: TextStyle(
+                                            fontSize: size.height * p1,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                          ),
+                                        ),
+                                        Gap(size.height * 0.02),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              AppRoutes.goRouter.pop();
+                                              ref
+                                                  .read(authPageTypeProvider
+                                                      .notifier)
+                                                  .state = "login";
+                                            },
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              "Kembali",
+                                              style: TextStyle(
+                                                fontSize: size.height * p1,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     );
-                                    return const Text("Berhasil Registarsi");
                                   },
+
+                                  /// jika gagal
                                   error: (error, stackTrace) {
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -268,6 +312,10 @@ class RegisterForm extends ConsumerWidget {
                                           child: TextButton(
                                             onPressed: () {
                                               AppRoutes.goRouter.pop();
+                                              // ref
+                                              //     .read(authPageTypeProvider
+                                              //         .notifier)
+                                              //     .state = "login";
                                             },
                                             style: TextButton.styleFrom(
                                               backgroundColor: Theme.of(context)
@@ -292,6 +340,8 @@ class RegisterForm extends ConsumerWidget {
                                       ],
                                     );
                                   },
+
+                                  /// ketika loading
                                   loading: () {
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
