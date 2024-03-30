@@ -6,17 +6,22 @@ import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/stories/persentation/controller/story_index.dart';
 import 'package:status_app/features/stories/persentation/view/story_index.dart';
 
-class HomeFragment extends ConsumerWidget {
+class HomeFragment extends ConsumerStatefulWidget {
   const HomeFragment({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  HomeFragmentState createState() => HomeFragmentState();
+}
+
+class HomeFragmentState extends ConsumerState<HomeFragment> {
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final story = ref.watch(
       storyIndexControllerProv(
         const StoryIndexParams(
           page: 1,
-          size: 20,
+          size: 10,
           location: 0,
         ),
       ),
@@ -29,7 +34,7 @@ class HomeFragment extends ConsumerWidget {
             storyIndexControllerProv(
               const StoryIndexParams(
                 page: 1,
-                size: 20,
+                size: 10,
                 location: 0,
               ),
             ),

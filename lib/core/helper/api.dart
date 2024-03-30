@@ -22,6 +22,7 @@ class ApiHelper {
       switch (response.statusCode) {
         case HttpStatus.ok:
           final data = jsonDecode(response.body);
+          print(response.body);
           return builder(data);
         case HttpStatus.unauthorized:
           LocalPrefsRepository().deleteToken();
@@ -120,7 +121,6 @@ class ApiHelper {
           throw Exception("endpoint not found");
         default:
           final data = jsonDecode(response.body);
-          print(response.body);
           throw Exception(data.toString());
       }
     } on SocketException catch (_) {

@@ -57,7 +57,7 @@ class AddStoryApplication {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Gagal Menambahkan Cerita",
+                            "Status",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: size.height * h1,
@@ -84,9 +84,9 @@ class AddStoryApplication {
                                 AppRoutes().clearAndNavigate(AppRoutes.home);
                                 ref.invalidate(
                                   storyIndexControllerProv(
-                                    const StoryIndexParams(
-                                      page: 1,
-                                      size: 20,
+                                    StoryIndexParams(
+                                      // page: 1,
+                                      size: 10,
                                       location: 0,
                                     ),
                                   ),
@@ -154,6 +154,7 @@ class AddStoryApplication {
           padding: EdgeInsets.all(size.width * 0.06),
           height: size.height * 0.15,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -181,8 +182,8 @@ class AddStoryApplication {
                       children: [
                         Image.asset(
                           "assets/images/camera.png",
-                          height: size.width * 0.1,
-                          width: size.width * 0.1,
+                          height: size.height * 0.05,
+                          width: size.height * 0.05,
                         ),
                         Gap(size.height * 0.005),
                         Text(

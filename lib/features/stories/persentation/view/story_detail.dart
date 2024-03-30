@@ -50,7 +50,7 @@ class StoryDetail extends ConsumerWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.network(
-                        data.imageUrl,
+                        data.photoUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -79,7 +79,7 @@ class StoryDetail extends ConsumerWidget {
                   /// description
                   Gap(size.height * 0.03),
                   Text(
-                    data.description,
+                    data.description ,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: size.height * p1,

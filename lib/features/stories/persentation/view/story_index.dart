@@ -65,7 +65,7 @@ class StoriesIndex extends ConsumerWidget {
             /// image
             Gap(size.height * 0.01),
             Image.network(
-              story.imageUrl,
+              story.photoUrl,
               height: size.width,
               width: size.width,
               fit: BoxFit.cover,
