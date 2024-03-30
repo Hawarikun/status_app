@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
+import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/stories/domain/stories.dart';
 import 'package:status_app/features/stories/persentation/controller/story_detail.dart';
@@ -79,7 +81,7 @@ class StoryDetail extends ConsumerWidget {
                   /// description
                   Gap(size.height * 0.03),
                   Text(
-                    data.description ,
+                    data.description,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: size.height * p1,
@@ -88,17 +90,38 @@ class StoryDetail extends ConsumerWidget {
 
                   /// lat and lan
                   Gap(size.height * 0.03),
-                  Text(
-                    "lat : ${data.lat}",
-                    style: TextStyle(
-                      fontSize: size.height * p1,
-                    ),
-                  ),
-                  Gap(size.height * 0.01),
-                  Text(
-                    "lon : ${data.lon}",
-                    style: TextStyle(
-                      fontSize: size.height * p1,
+                  // Text(
+                  //   "lat : ${data.lat}",
+                  //   style: TextStyle(
+                  //     fontSize: size.height * p1,
+                  //   ),
+                  // ),
+                  // Gap(size.height * 0.01),
+                  // Text(
+                  //   "lon : ${data.lon}",
+                  //   style: TextStyle(
+                  //     fontSize: size.height * p1,
+                  //   ),
+                  // ),
+
+                  Visibility(
+                    visible: data.lat != null && data.lon != null,
+                    child: Center(
+                      child: SizedBox(
+                        width: size.width * 0.5,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            AppRoutes.goRouter.pushNamed(
+                              AppRoutes.map,
+                              extra: data,
+                            );
+                          },
+                          child: Text(
+                            "Lokasi",
+                            style: TextStyle(fontSize: size.height * h3),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
