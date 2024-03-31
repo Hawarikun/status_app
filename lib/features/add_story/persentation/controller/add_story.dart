@@ -19,6 +19,8 @@ class AddStoryController extends StateNotifier<AsyncValue> {
         description: params.description,
         image: params.image,
         fileName: params.fileName,
+        lat: params.lat,
+        lon: params.lon,
       );
       state = AsyncValue.data(response);
     } catch (e, s) {

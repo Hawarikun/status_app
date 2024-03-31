@@ -21,6 +21,13 @@ final descriptionControllerProvider =
   (ref) => TextEditingController(),
 );
 
+final latitudeControllerProvider =
+    StateProvider.autoDispose<TextEditingController>(
+        (ref) => TextEditingController());
+final longitudeControllerProvider =
+    StateProvider.autoDispose<TextEditingController>(
+        (ref) => TextEditingController());
+
 class AddStory extends StatefulWidget {
   const AddStory({super.key});
 
@@ -35,9 +42,11 @@ class _AddStoryState extends State<AddStory> {
 
     return Consumer(
       builder: (context, ref, child) {
-        final descriptionController = ref.watch(descriptionControllerProvider);
         final imagePath = ref.watch(imagePathProvider);
         final imageFile = ref.watch(imageFileProvider);
+        final descriptionController = ref.watch(descriptionControllerProvider);
+        final latitudeController = ref.watch(latitudeControllerProvider);
+        final longitudeController = ref.watch(longitudeControllerProvider);
 
         onGalleryView() async {
           final picker = ImagePicker();
@@ -201,6 +210,52 @@ class _AddStoryState extends State<AddStory> {
                     return null;
                   },
                 ),
+                Gap(size.height * 0.03),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          CustomTextFormField(
+                            nameController: latitudeController,
+                            type: TextInputType.number,
+                            hintText: "Latitude",
+                            callBack: (p0) {
+                              return null;
+                            },
+                          ),
+                          Gap(size.height * 0.01),
+                          CustomTextFormField(
+                            nameController: longitudeController,
+                            type: TextInputType.number,
+                            hintText: "Latitude",
+                            callBack: (p0) {
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: size.width * 0.02),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            AppRoutes.goRouter.pushNamed(AppRoutes.pickerMap);
+                          },
+                          child: Text(
+                            "Pilih",
+                            style: TextStyle(fontSize: size.height * h3),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Gap(size.height * 0.05),
                 SizedBox(
                   width: size.width,
@@ -221,6 +276,8 @@ class _AddStoryState extends State<AddStory> {
                           description: descriptionController.text,
                           fileName: imageFile!.name,
                           image: bytes,
+                          lon: double.parse(longitudeController.text),
+                          lat: double.parse(latitudeController.text),
                         );
                       }
                     },
@@ -237,7 +294,7 @@ class _AddStoryState extends State<AddStory> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

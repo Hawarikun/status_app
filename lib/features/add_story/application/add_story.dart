@@ -85,7 +85,7 @@ class AddStoryApplication {
                                 ref.invalidate(
                                   storyIndexControllerProv(
                                     StoryIndexParams(
-                                      // page: 1,
+                                      page: 1,
                                       size: 10,
                                       location: 0,
                                     ),

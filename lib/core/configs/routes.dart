@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:status_app/core/datas/shared_preferences.dart';
 import 'package:status_app/features/add_story/persentation/view/add_story.dart';
 import 'package:status_app/features/maps/persentation/view/maps.dart';
+import 'package:status_app/features/maps/persentation/view/picker_maps.dart';
 import 'package:status_app/features/stories/domain/stories.dart';
 import 'package:status_app/features/stories/persentation/view/story_detail.dart';
 import 'package:status_app/pages/auth.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
   static const detailStory = "detail-story";
   static const addStory = "add-story";
   static const map = "map";
+  static const pickerMap = "picker-map";
 
   static final goRouter = GoRouter(
     initialLocation: "/splash",
@@ -56,6 +58,11 @@ class AppRoutes {
         name: map,
         path: "/map",
         pageBuilder: _mapPageBuilder,
+      ),
+      GoRoute(
+        name: pickerMap,
+        path: "/picker-map",
+        pageBuilder: _mapPickerPageBuilder,
       ),
     ],
   );
@@ -102,7 +109,15 @@ class AppRoutes {
 
   static Page _mapPageBuilder(context, state) {
     return transition(
-      child: MapScreen(data: state.extra as Story,),
+      child: MapScreen(
+        data: state.extra as Story,
+      ),
+    );
+  }
+
+  static Page _mapPickerPageBuilder(context, state) {
+    return transition(
+      child: const PickerScreen(),
     );
   }
 

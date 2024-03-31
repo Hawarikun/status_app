@@ -26,6 +26,8 @@ class AddStoryRepository {
       files: {"photo": image},
       fields: {
         "description": description,
+        "lat": lat,
+        "lon": lon,
       },
     );
   }

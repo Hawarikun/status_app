@@ -81,7 +81,7 @@ class ApiHelper {
     required Map<String, List<int>?> files,
     required String? fileName,
     required T Function(dynamic data) builder,
-    Map<String, String>? fields,
+    Map<String, dynamic>? fields,
     Map<String, String>? header,
   }) async {
     try {
@@ -99,7 +99,9 @@ class ApiHelper {
       });
 
       if (fields != null) {
-        x.fields.addAll(fields);
+        final fieldsStringMap =
+            fields.map((key, value) => MapEntry(key, value.toString()));
+        x.fields.addAll(fieldsStringMap);
       }
 
       if (header != null) {

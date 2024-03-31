@@ -49,6 +49,7 @@ class _MapScreenState extends State<MapScreen> {
         child: Stack(
           children: [
             GoogleMap(
+              markers: markers,
               initialCameraPosition: CameraPosition(
                 zoom: 18,
                 target: location,
