@@ -19,8 +19,11 @@ class StoryDetail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final storyDetail =
-        ref.watch(storyDetailControllerProv(StoryDetailParams(id: story.id)));
+    final storyDetail = ref.watch(
+      storyDetailControllerProv(
+        StoryDetailParams(id: story.id),
+      ),
+    );
 
     return Scaffold(
       appBar: AppBar(
