@@ -5,6 +5,7 @@ import 'package:status_app/core/configs/routes.dart';
 import 'package:status_app/core/configs/text_size.dart';
 import 'package:status_app/features/add_story/persentation/controller/add_story.dart';
 import 'package:status_app/features/stories/persentation/controller/story_index.dart';
+import 'package:status_app/pages/home_fragment.dart';
 
 class AddStoryApplication {
   addStory(
@@ -82,11 +83,12 @@ class AddStoryApplication {
                             child: TextButton(
                               onPressed: () {
                                 AppRoutes().clearAndNavigate(AppRoutes.home);
+
                                 ref.invalidate(
                                   storyIndexControllerProv(
-                                    StoryIndexParams(
+                                    const StoryIndexParams(
                                       page: 1,
-                                      size: 10,
+                                      size: 3,
                                       location: 0,
                                     ),
                                   ),
@@ -151,7 +153,12 @@ class AddStoryApplication {
       context: context,
       builder: (context) {
         return Container(
-          padding: EdgeInsets.all(size.width * 0.06),
+          padding: EdgeInsets.fromLTRB(
+            size.width * 0.06,
+            0,
+            0,
+            0,
+          ),
           height: size.height * 0.15,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
