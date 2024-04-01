@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:status_app/features/maps/persentation/view/picker_maps.dart';
 import 'package:status_app/features/stories/domain/stories.dart';
 
 class MapScreen extends StatefulWidget {
@@ -19,6 +21,22 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Marker> markers = {};
   LatLng location = const LatLng(0, 0);
   MapType selectedMapType = MapType.normal;
+  geo.Placemark? placemark;
+
+  void defineMarker(LatLng latLng, String street, String address) {
+    final marker = Marker(
+      markerId: const MarkerId("source"),
+      position: latLng,
+      infoWindow: InfoWindow(
+        title: street,
+        snippet: address,
+      ),
+    );
+    setState(() {
+      markers.clear();
+      markers.add(marker);
+    });
+  }
 
   @override
   void initState() {
@@ -39,6 +57,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(location);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -54,18 +73,74 @@ class _MapScreenState extends State<MapScreen> {
                 zoom: 18,
                 target: location,
               ),
-              onMapCreated: (controller) {
+              onMapCreated: (controller) async {
+                final info = await geo.placemarkFromCoordinates(
+                    location.latitude, location.longitude);
+                final place = info[0];
+                final street = place.street!;
+                final address =
+                    '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+                setState(() {
+                  placemark = place;
+                });
+                defineMarker(location, street, address);
+                final marker = Marker(
+                  markerId: const MarkerId("source"),
+                  position: location,
+                );
+                setState(() {
+                  mapController = controller;
+                  markers.add(marker);
+                });
                 setState(() {
                   mapController = controller;
                 });
               },
               mapType: selectedMapType,
             ),
+            // Positioned(
+            //   bottom: 0,
+            //   right: 16,
+            //   child: Column(
+            //     children: [],
+            //   ),
+            // ),
             Positioned(
-              bottom: 16,
+              top: 16,
               right: 16,
               child: Column(
                 children: [
+                  FloatingActionButton.small(
+                    onPressed: null,
+                    child: PopupMenuButton<MapType>(
+                      onSelected: (MapType item) {
+                        setState(() {
+                          selectedMapType = item;
+                        });
+                      },
+                      offset: const Offset(0, 54),
+                      icon: const Icon(Icons.layers_outlined),
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<MapType>>[
+                        const PopupMenuItem<MapType>(
+                          value: MapType.normal,
+                          child: Text('Normal'),
+                        ),
+                        const PopupMenuItem<MapType>(
+                          value: MapType.satellite,
+                          child: Text('Satellite'),
+                        ),
+                        const PopupMenuItem<MapType>(
+                          value: MapType.terrain,
+                          child: Text('Terrain'),
+                        ),
+                        const PopupMenuItem<MapType>(
+                          value: MapType.hybrid,
+                          child: Text('Hybrid'),
+                        ),
+                      ],
+                    ),
+                  ),
                   FloatingActionButton.small(
                     heroTag: "zoom-in",
                     onPressed: () {
@@ -87,41 +162,18 @@ class _MapScreenState extends State<MapScreen> {
                 ],
               ),
             ),
-            Positioned(
-              top: 16,
-              right: 16,
-              child: FloatingActionButton.small(
-                onPressed: null,
-                child: PopupMenuButton<MapType>(
-                  onSelected: (MapType item) {
-                    setState(() {
-                      selectedMapType = item;
-                    });
-                  },
-                  offset: const Offset(0, 54),
-                  icon: const Icon(Icons.layers_outlined),
-                  itemBuilder: (BuildContext context) =>
-                      <PopupMenuEntry<MapType>>[
-                    const PopupMenuItem<MapType>(
-                      value: MapType.normal,
-                      child: Text('Normal'),
-                    ),
-                    const PopupMenuItem<MapType>(
-                      value: MapType.satellite,
-                      child: Text('Satellite'),
-                    ),
-                    const PopupMenuItem<MapType>(
-                      value: MapType.terrain,
-                      child: Text('Terrain'),
-                    ),
-                    const PopupMenuItem<MapType>(
-                      value: MapType.hybrid,
-                      child: Text('Hybrid'),
-                    ),
-                  ],
+            if (placemark == null)
+              const SizedBox()
+            else
+              Positioned(
+                bottom: 16,
+                right: 16,
+                left: 16,
+                child: PlacemarkWidget(
+                  placemark: placemark!,
+                  location: location,
                 ),
               ),
-            ),
           ],
         ),
       ),

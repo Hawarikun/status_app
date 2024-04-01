@@ -32,6 +32,8 @@ class AddStoryApplication {
               padding: EdgeInsets.all(size.width * 0.03),
               child: Consumer(
                 builder: (context, ref, child) {
+                  final pagingController = ref.watch(pagingControllerProvider);
+
                   final response = ref.watch(
                     addStoryControllerProv(
                       AddStoryParams(
@@ -43,6 +45,7 @@ class AddStoryApplication {
                       ),
                     ),
                   );
+
                   return response.when(
                     data: (data) {
                       Future.delayed(
@@ -69,7 +72,8 @@ class AddStoryApplication {
                             height: size.height * 0.02,
                           ),
                           Text(
-                            error.toString(),
+                            // error.toString(),
+                            "Success",
                             style: TextStyle(
                               fontSize: size.height * p1,
                               color: Theme.of(context).colorScheme.onBackground,
@@ -83,6 +87,8 @@ class AddStoryApplication {
                             child: TextButton(
                               onPressed: () {
                                 AppRoutes().clearAndNavigate(AppRoutes.home);
+
+                                pagingController.refresh();
 
                                 ref.invalidate(
                                   storyIndexControllerProv(

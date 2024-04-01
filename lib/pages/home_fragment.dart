@@ -7,6 +7,11 @@ import 'package:status_app/features/stories/domain/stories.dart';
 import 'package:status_app/features/stories/persentation/controller/story_index.dart';
 import 'package:status_app/features/stories/persentation/view/story_index.dart';
 
+final pagingControllerProvider =
+    StateProvider.autoDispose<PagingController<int, Story>>((ref) {
+  return PagingController(firstPageKey: 1);
+});
+
 class HomeFragment extends ConsumerStatefulWidget {
   const HomeFragment({Key? key}) : super(key: key);
 
@@ -15,46 +20,40 @@ class HomeFragment extends ConsumerStatefulWidget {
 }
 
 class HomeFragmentState extends ConsumerState<HomeFragment> {
-  final _pageSize = 3;
-
-  final PagingController<int, Story> _pagingController =
-      PagingController(firstPageKey: 1);
-
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
+    super.initState();
+    final pagingController = ref.read(pagingControllerProvider);
+    pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
-    super.initState();
   }
 
-  @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  void _fetchPage(int pageKey) async {
     try {
       final newItems = await StoriesRepository(StoryApi()).index(
         page: pageKey,
-        size: _pageSize,
+        size: 3, // You can adjust the size here
         location: 0,
       );
-      final isLastPage = newItems.length < _pageSize;
+      final isLastPage =
+          newItems.length < 3; // You can adjust the page size here
+      final pagingController = ref.read(pagingControllerProvider);
       if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
+        pagingController.appendLastPage(newItems);
       } else {
         final nextPageKey = pageKey + newItems.length;
+
         Future.delayed(
           const Duration(seconds: 1),
           () {
-            _pagingController.appendPage(newItems, nextPageKey);
+            pagingController.appendPage(newItems, nextPageKey);
           },
         );
       }
     } catch (error) {
-      _pagingController.error = error;
+      final pagingController = ref.read(pagingControllerProvider);
+      pagingController.error = error;
     }
   }
 
@@ -62,39 +61,29 @@ class HomeFragmentState extends ConsumerState<HomeFragment> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final story = ref.watch(
-          storyIndexControllerProv(
-            const StoryIndexParams(page: 1, size: 3, location: 0),
-          ),
-        );
+        final pagingController = ref.watch(pagingControllerProvider);
 
-        return story.when(
-          data: (data) {
-            return RefreshIndicator(
-              onRefresh: () async {
-                ref.invalidate(
-                  storyIndexControllerProv(
-                    const StoryIndexParams(page: 1, size: 3, location: 0),
-                  ),
-                );
-
-                _pagingController.refresh();
-              },
-              child: PagedListView<int, Story>(
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Story>(
-                  animateTransitions: true,
-                  // [transitionDuration] has a default value of 250 milliseconds.
-                  transitionDuration: const Duration(milliseconds: 1000),
-                  itemBuilder: (context, item, index) => StoriesIndex(
-                    story: item,
-                  ),
-                ),
+        return RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(
+              storyIndexControllerProv(
+                const StoryIndexParams(page: 1, size: 3, location: 0),
               ),
             );
+
+            pagingController.refresh();
           },
-          error: (error, stackTrace) => Center(child: Text(error.toString())),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          child: PagedListView<int, Story>(
+            pagingController: pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Story>(
+              animateTransitions: true,
+              // [transitionDuration] has a default value of 250 milliseconds.
+              transitionDuration: const Duration(milliseconds: 1000),
+              itemBuilder: (context, item, index) => StoriesIndex(
+                story: item,
+              ),
+            ),
+          ),
         );
       },
     );
